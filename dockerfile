@@ -35,6 +35,6 @@ RUN cd openssl && \
 
 COPY generate_file.sh /home/apps/generate_file.sh
 
-RUN chmod +x /home/app/generate_file.sh
+RUN chmod +x /home/apps/generate_file.sh
 
-ENTRYPOINT ["/app/generate_file.sh"]
+ENTRYPOINT ["/home/apps/generate_file.sh"]
