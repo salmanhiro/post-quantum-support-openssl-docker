@@ -1,16 +1,40 @@
-FROM alpine:latest
+FROM python:3.9-alpine3.13 AS build
 
-# Install any necessary dependencies
-RUN apk add --no-cache bash
+RUN apk --update  add --no-cache \
+    postgresql-dev \
+    postgresql-client \
+    g++ libffi-dev openssl-dev make \
+    musl-dev python3-dev cargo libressl-dev \
+	cmake gcc libtool make ninja git perl \
+    && pip3 install --upgrade pip
 
-# Set the working directory
-WORKDIR /app
+WORKDIR /home/apps
 
-# Copy your script or program that generates the file into the container
-COPY generate_file.sh /app/generate_file.sh
+RUN git clone https://github.com/open-quantum-safe/openssl.git && \
+    cd openssl && \
+    git checkout 1e13c8cb261089fe49120e23b91fc666d562f45b && \
+    cd ../ && \
+    git clone https://github.com/open-quantum-safe/liboqs.git && \
+    cd liboqs && \
+    git checkout d5be452ec8824775da55f16bcb14e54e61ce9ff6 && \
+    cd ..
 
-# Make the script executable
-RUN chmod +x /app/generate_file.sh
+RUN cd liboqs && \
+    mkdir build && \
+    cd build && \
+    cmake -GNinja -DCMAKE_INSTALL_PREFIX=../../openssl/oqs .. && \
+    ninja && \
+    ninja install && \
+    cd ../../
 
-# Set the entry point to the script
+RUN cd openssl && \
+    ./Configure no-shared linux-x86_64 -lm && \
+    make && \
+    make install && \
+    cd ../
+
+COPY generate_file.sh /home/apps/generate_file.sh
+
+RUN chmod +x /home/app/generate_file.sh
+
 ENTRYPOINT ["/app/generate_file.sh"]
