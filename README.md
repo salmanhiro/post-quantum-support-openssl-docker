@@ -11,4 +11,4 @@ Implementation of https://github.com/open-quantum-safe/openssl in docker contain
 openssl req -x509 -new -newkey dilithium3 -keyout /shared/dilithium3_CA.key -out /shared/dilithium3_CA.crt -nodes -subj "/CN=oqstest CA" -days 365
 ```
 
-Make sure to point out the output file to `/shared/` directory, since it was mounted as shared volume in docker.
+Make sure to point out the output file to `/shared/` directory, since it was mounted as shared volume in docker. Refer to the [original documentation](https://github.com/open-quantum-safe/openssl) for general use. 
