@@ -1,0 +1,8 @@
+version: '3'
+services:
+  file-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./host:/shared
