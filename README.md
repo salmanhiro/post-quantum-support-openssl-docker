@@ -1,5 +1,5 @@
 # post-quantum-support-openssl-docker
-Implementation of https://github.com/open-quantum-safe/openssl in docker container for convenience
+Implementation of https://github.com/open-quantum-safe/openssl in docker container for convenience. No more complicated installation and break your local OpenSSL.
 
 ## Using Docker Compose
 1. Build docker compose using `docker-compose build`
