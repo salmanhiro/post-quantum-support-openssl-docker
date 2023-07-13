@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.13 AS build
+FROM nginx:stable-alpine AS build
 
 RUN apk --update  add --no-cache \
     postgresql-dev \
