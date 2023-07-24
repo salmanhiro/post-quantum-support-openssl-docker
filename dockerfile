@@ -29,9 +29,5 @@ RUN cd openssl && \
     make && \
     make install && \
     cd ../
-
-COPY generate_file.sh /home/apps/generate_file.sh
-
-RUN chmod +x /home/apps/generate_file.sh
-
-ENTRYPOINT ["/home/apps/generate_file.sh"]
+    
+CMD tail -f /dev/null
