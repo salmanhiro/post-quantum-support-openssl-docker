@@ -1,12 +1,9 @@
-FROM nginx:stable-alpine AS build
+FROM python:3.9-alpine3.13 AS build
 
-RUN apk --update  add --no-cache \
+RUN apk --update  add \
     postgresql-dev \
     postgresql-client \
-    g++ libffi-dev openssl-dev make \
-    musl-dev python3-dev cargo libressl-dev \
-	cmake gcc libtool make ninja git perl \
-    && pip3 install --upgrade pip
+    git cmake g++ libffi-dev make ninja musl-dev python3-dev cargo perl openssl-dev
 
 WORKDIR /home/apps
 
